@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 export default function SignUp() {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           username,
@@ -27,28 +27,28 @@ export default function SignUp() {
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage(data?.error || "Registration failed");
+        setMessage(data?.error || 'Registration failed');
         return;
       }
 
       const userId = data.user?.id;
       if (!userId) {
-        setMessage("Error creating user");
+        setMessage('Error creating user');
       }
 
-      localStorage.setItem("userId", userId);
+      localStorage.setItem('userId', userId);
       setMessage(data.msg);
 
       setTimeout(() => {
-        router.push("/dashboard");
+        router.push('/dashboard');
       }, 2000);
     } catch (error) {
-      console.error("Registration error:", error);
-      setMessage("Network error. Please try again.");
+      console.error('Registration error:', error);
+      setMessage('Network error. Please try again.');
     }
   };
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="flex h-screen items-center justify-center">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <input
           type="email"

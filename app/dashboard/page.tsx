@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 export default function Dashboard() {
   const [expense, setExpense] = useState([]);
@@ -9,17 +9,17 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchExpense = async () => {
       try {
-        const userId = localStorage.getItem("userId");
+        const userId = localStorage.getItem('userId');
         if (!userId) return;
 
-        const response = await fetch("/api/expense", {
+        const response = await fetch('/api/expense', {
           headers: {
-            "user-id": userId,
+            'user-id': userId,
           },
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch expenses");
+          throw new Error('Failed to fetch expenses');
         }
 
         const data = await response.json();
