@@ -1,33 +1,38 @@
-import { cn } from '@/app/lib/utils';
-import Link from 'next/link';
-import React from 'react';
+import { PanelRightOpen } from 'lucide-react';
+import { SidebarItems } from './sidebar-items';
+import { Button } from './ui/button';
 
 export const Sidebar = () => {
   return (
-    <aside className="w-64 overflow-y-auto border-r border-neutral-400">
-      <p className="px-4 py-6 text-lg font-bold">Pluto</p>
-      <ul className="">
-        <SidebarItems path="/dashboard" pathName="Dashboard" />
-        <SidebarItems path="/dashboard/expense" pathName="Expense" />
-        <SidebarItems path="/dashboard/income" pathName="Income" />
-        <SidebarItems path="/dashboard/staff" pathName="Daily attendees" />
+    <aside className="border-border w-64 overflow-y-auto border-r py-6">
+      <div className="flex items-center justify-between px-4">
+        <p className="text-xl font-bold">Pluto</p>
+        <Button variant="ghost" className="p-0">
+          <PanelRightOpen
+            className="hover:text-foreground text-muted size-5"
+            focusable="false"
+          />
+        </Button>
+      </div>
+      <hr className="text-border my-4" />
+      <ul className="space-y-6 px-2">
+        <li>
+          <p className="mb-2 px-2 text-sm font-semibold">Main</p>
+          <ul className="space-y-1">
+            <SidebarItems path="/dashboard" pathName="Dashboard" />
+            <SidebarItems path="/dashboard/expense" pathName="Expense" />
+            <SidebarItems path="/dashboard/income" pathName="Income" />
+          </ul>
+        </li>
+
+        <li>
+          <p className="mb-2 px-2 text-sm font-semibold">Management</p>
+          <ul className="space-y-1">
+            <SidebarItems path="/dashboard/staff" pathName="Daily attendees" />
+            <SidebarItems path="/dashboard/wages" pathName="Daily wages" />
+          </ul>
+        </li>
       </ul>
     </aside>
   );
 };
-
-function SidebarItems({
-  path,
-  pathName,
-  classname,
-}: {
-  path: string;
-  pathName: string;
-  classname?: string;
-}) {
-  return (
-    <li className={cn('mb-2 bg-neutral-800/70 px-4 py-0.5', classname)}>
-      <Link href={path}>{pathName}</Link>
-    </li>
-  );
-}

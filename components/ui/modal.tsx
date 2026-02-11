@@ -21,7 +21,7 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="bg-background/50 fixed inset-0 z-50 flex items-center justify-center"
       onClick={closeOnBackdrop ? onClose : undefined}
     >
       <div
@@ -31,7 +31,7 @@ export default function Modal({
         {title && <h2 className="mb-4 text-lg font-semibold">{title}</h2>}
 
         <button
-          className="absolute top-2 right-2 cursor-pointer text-gray-500"
+          className="absolute top-2 right-2 cursor-pointer"
           onClick={onClose}
         >
           ✕

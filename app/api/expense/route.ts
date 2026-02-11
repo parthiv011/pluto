@@ -18,12 +18,14 @@ export async function POST(req: Request) {
       );
     }
 
+    // const dateConverted = ;
+
     const expense = await prisma.expense.create({
       data: {
         userId: userId,
         amount: amount,
         category: category,
-        date: date,
+        date,
       },
     });
     return NextResponse.json({ expense }, { status: 201 });
@@ -36,6 +38,7 @@ export async function POST(req: Request) {
     );
   }
 }
+
 export async function GET(req: Request) {
   const userId = req.headers.get('user-id');
   if (!userId) {

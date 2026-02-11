@@ -1,20 +1,34 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light mode – clean & professional */
+  --background: #f9fafb; /* neutral-50 */
+  --foreground: #111827; /* neutral-900 */
+
+  --surface: #ffffff; /* cards / sidebar */
+  --border: #e5e7eb; /* neutral-200 */
+  --muted: #6b7280; /* neutral-500 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+
   --font-sans: var(--font-rethink);
 }
 
+/* Dark mode – neutral, not “flashy dark” */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0f14; /* near-black */
+    --foreground: #e5e7eb; /* neutral-200 */
+
+    --surface: #111827; /* neutral-900 */
+    --border: #1f2937; /* neutral-800 */
+    --muted: #9ca3af; /* neutral-400 */
   }
 }
 

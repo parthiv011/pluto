@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/app/lib/utils';
 import { Button } from '@/components/ui/button';
+import { FormInput } from '@/components/ui/form-input';
 import React, { useEffect, useState } from 'react';
 
 type ExpenseFormProps = {
@@ -30,12 +30,12 @@ export default function ExpenseForm({ onSuccess }: ExpenseFormProps) {
     try {
       const res = await fetch('/api/expense', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'user-id': userId },
         body: JSON.stringify({
           userId,
           amount: Number(amount),
           category: category.trim(),
-          date,
+          date: new Date(date).toISOString(),
         }),
       });
 
@@ -73,34 +73,8 @@ export default function ExpenseForm({ onSuccess }: ExpenseFormProps) {
         value={date}
         onChange={(e) => setDate(e.target.value)}
       />
-      <Button>Add Expense</Button>
+      <Button type="submit">Add Expense</Button>
       {error && <p className="text-red-500">{error}</p>}
     </form>
-  );
-}
-
-interface FormInputProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  type: string;
-  classname?: string;
-}
-
-function FormInput({
-  value,
-  placeholder,
-  onChange,
-  type,
-  classname,
-}: FormInputProps) {
-  return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className={cn('rounded-xl border border-neutral-400 p-2', classname)}
-    />
   );
 }
