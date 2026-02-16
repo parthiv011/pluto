@@ -7,6 +7,7 @@ interface FormInputProps {
   placeholder?: string;
   type: string;
   classname?: string;
+  max?: string;
 }
 
 export function FormInput({
@@ -15,6 +16,7 @@ export function FormInput({
   onChange,
   type,
   classname,
+  ...props
 }: FormInputProps) {
   return (
     <input
@@ -23,6 +25,7 @@ export function FormInput({
       value={value}
       onChange={onChange}
       className={cn('border-border rounded-xl border p-2', classname)}
+      {...props}
     />
   );
 }

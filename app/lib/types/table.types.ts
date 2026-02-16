@@ -3,8 +3,12 @@ export type DashboardTableProps<T> = {
   data: T[];
 
   // pagination
-  pageSizeOptions?: number[];
-  defaultPageSize?: number;
+  page: number;
+  pageSize: number;
+  pageSizeOptions: number[];
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
 };
 
 export type Column<T> = {

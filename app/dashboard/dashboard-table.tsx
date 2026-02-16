@@ -1,114 +1,98 @@
 import { DashboardTableProps } from '@/app/lib/types/table.types';
-import { useMemo, useState } from 'react';
+import { PaginationControls } from '@/components/pagination-controls';
 
-export const DashboardTable = <T extends { id?: string | number }>({
+export const DashboardTable = <T extends { id: string | number }>({
   columns,
   data,
-  pageSizeOptions = [5, 10, 25, 50],
-  defaultPageSize = 10,
+  page,
+  pageSize,
+  pageSizeOptions,
+  totalPages,
+  onPageChange,
+  onPageSizeChange,
 }: DashboardTableProps<T>) => {
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
-
-  const totalPages = Math.ceil(data.length / pageSize);
-
-  const paginatedData = useMemo(() => {
-    const start = (page - 1) * pageSize;
-    return data.slice(start, start + pageSize);
-  }, [data, page, pageSize]);
-
   return (
-    <div className="border-border w-full border">
-      {/* Desktop/Tab Table */}
+    <>
+      {/* Desktop Table */}
       <div className="hidden overflow-x-auto md:block">
         <table className="h-full w-full">
           <thead className="text-muted bg-surface text-left">
-            <tr className="">
+            <tr>
               {columns.map((col) => (
-                <th key={String(col.key)} className="px-4 py-2 capitalize">
+                <th
+                  key={String(col.key)}
+                  scope="col"
+                  className="px-4 py-2 capitalize"
+                >
                   {col.label}
                 </th>
               ))}
             </tr>
           </thead>
+
           <tbody>
-            {paginatedData.map((row, index) => (
-              <tr key={(row as any).id ?? index}>
-                {columns.map((col) => (
-                  <td key={String(col.key)} className="px-4 py-1.5 capitalize">
-                    {col.render
-                      ? col.render(row[col.key], row)
-                      : String(row[col.key])}
-                  </td>
-                ))}
+            {data.length === 0 ? (
+              <tr>
+                <td colSpan={columns.length} className="px-4 py-4 text-center">
+                  No data available
+                </td>
               </tr>
-            ))}
+            ) : (
+              data.map((row) => (
+                <tr key={row.id}>
+                  {columns.map((col) => (
+                    <td
+                      key={String(col.key)}
+                      className="px-4 py-1.5 capitalize"
+                    >
+                      {col.render
+                        ? col.render(row[col.key], row)
+                        : String(row[col.key])}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
-      {/* Mobile Card */}
-      <div className="flex flex-col gap-4 md:hidden">
-        {paginatedData.map((row, index) => (
-          <div key={(row as any).id ?? index}>
-            {columns.map((col) => (
-              <div key={String(col.key)}>
-                <span>{col.label}</span>
-                <span>
-                  {col.render
-                    ? col.render(row[col.key], row)
-                    : String(row[col.key])}
-                </span>
-              </div>
-            ))}
+      {/* Mobile View */}
+      <div className="flex flex-col gap-4 p-4 md:hidden">
+        {data.length === 0 ? (
+          <div className="text-muted rounded-lg border p-6 text-center">
+            No data available
           </div>
-        ))}
-      </div>
-      {/* Pagination */}
-      <div className="my-4 flex items-center justify-between px-4">
-        {/* Entries selector */}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Show</span>
-            <select
-              value={pageSize}
-              onChange={(e) => {
-                setPageSize(Number(e.target.value));
-                setPage(1);
-              }}
-              className="rounded-md border px-2 py-1 text-sm"
+        ) : (
+          data.map((row) => (
+            <div
+              key={row.id}
+              className="bg-surface border-border rounded-lg border p-4 shadow-sm"
             >
-              {pageSizeOptions.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
+              {columns.map((col) => (
+                <div
+                  key={String(col.key)}
+                  className="flex justify-between gap-4"
+                >
+                  <span className="text-muted font-medium">{col.label}</span>
+                  <span className="capitalize">
+                    {col.render
+                      ? col.render(row[col.key], row)
+                      : String(row[col.key])}
+                  </span>
+                </div>
               ))}
-            </select>
-            <span className="text-sm">entries</span>
-          </div>
-        </div>
-        {/* Pagination controls */}
-        <div className="flex items-center justify-center gap-2">
-          <button
-            disabled={page === 1}
-            onClick={() => setPage((p) => p - 1)}
-            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
-          >
-            Prev
-          </button>
-
-          <span className="text-sm">
-            Page {page} of {totalPages}
-          </span>
-
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage((p) => p + 1)}
-            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+            </div>
+          ))
+        )}
       </div>
-    </div>
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        pageSizeOptions={pageSizeOptions}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+      />
+    </>
   );
 };

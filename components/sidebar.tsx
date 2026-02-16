@@ -16,7 +16,6 @@ import { cn } from '@/app/lib/utils';
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  console.log(isCollapsed);
   return (
     <aside
       className={`border-border overflow-y-auto border-r py-6 pt-5 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-16' : 'w-64'}`}

@@ -1,7 +1,8 @@
+import './globals.css';
+
 import type { Metadata } from 'next';
 import { Rethink_Sans } from 'next/font/google';
-import './globals.css';
-import { ThemeProvider } from '@/providers/theme-provider';
+import Providers from '@/providers';
 
 const rethink = Rethink_Sans({
   variable: '--font-rethink',
@@ -21,14 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${rethink.variable} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
