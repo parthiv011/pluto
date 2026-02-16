@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Rethink_Sans } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const rethink = Rethink_Sans({
   variable: '--font-rethink',
@@ -18,8 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${rethink.variable} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${rethink.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

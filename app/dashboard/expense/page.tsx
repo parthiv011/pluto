@@ -50,8 +50,8 @@ export default function ExpensePage() {
 
   console.log(expense);
   return (
-    <section className="px-12 py-4">
-      <div className="mb-10 flex items-center justify-between">
+    <section className="px-8 py-4">
+      <div className="mt-2 mb-6 flex items-center justify-between">
         <h1 className="font-sans text-2xl font-bold">Expense Dashboard</h1>
 
         <Button onClick={() => setIsOpen(true)}>Add Expense</Button>
