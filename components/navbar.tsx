@@ -1,5 +1,4 @@
 import { User } from 'lucide-react';
-import React from 'react';
 import { ModeToggle } from './ui/mode-toggle';
 
 export const Navbar = () => {

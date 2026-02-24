@@ -31,14 +31,11 @@ interface FetchExpenseProps {
 }
 
 export default function ExpensePage() {
-  const [expense, setExpense] = useState<ExpenseProps[]>([]);
-  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   // Pagination states
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
 
   // Filtering states
   const [dateFilter, setDateFilter] = useState('latest');
