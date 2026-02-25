@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import ExpenseForm from './expense-form';
-import Modal from '@/components/ui/modal';
-import { Button } from '@/components/ui/button';
-import { Column } from '@/app/lib/types/table.types';
-import { Expense } from '@/app/lib/types/expense.types';
 import { DashboardTable } from '@/app/dashboard/dashboard-table';
-import { FilterBar } from '../filter-bar';
 import { formatDate } from '@/app/lib/constants';
+import { Expense } from '@/app/lib/types/expense.types';
+import { Column } from '@/app/lib/types/table.types';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
 import { Loader } from '@/components/ui/loader';
+import Modal from '@/components/ui/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { FilterBar } from '../filter-bar';
+import ExpenseForm from './expense-form';
 
 interface ExpenseProps {
   id: string;
@@ -176,7 +177,7 @@ export default function ExpensePage() {
     },
   });
   return (
-    <section className="px-4 py-4 md:px-8">
+    <Container>
       <div className="mt-2 mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <h1 className="text-2xl font-bold">All Expenses</h1>
 
@@ -235,7 +236,7 @@ export default function ExpensePage() {
           />
         </div>
       )}
-    </section>
+    </Container>
   );
 }
 

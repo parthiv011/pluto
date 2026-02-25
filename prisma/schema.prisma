@@ -38,13 +38,27 @@ model Expense {
 }
 
 model Income {
-  id     String @id @default(cuid())
+  id     String       @id @default(cuid())
   amount Float
-  source String
+  source IncomeSource //enum
+  // currency String       @default("INR")
 
-  date      DateTime
-  createdAt DateTime @default(now())
+  platform  String?
+  brandName String?
+
+  description String?
+  receivedAt  DateTime
+  createdAt   DateTime @default(now())
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+enum IncomeSource {
+  ADS
+  SPONSORSHIP
+  AFFILIATE
+  SUBSCRIPTION
+  DONATION
+  OTHER
 }

@@ -44,7 +44,7 @@ export default function Modal({
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="bg-background relative min-w-[320px] rounded-xl p-6"
+            className="bg-background relative min-w-105 rounded-xl p-6"
             onClick={(e) => e.stopPropagation()}
             initial={{ scale: 0.95, opacity: 0, y: 10 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
