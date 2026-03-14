@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../../components/ui/button';
+import { Logo } from '@/components/ui/logo';
 
 export const HomeNavbar = () => {
   const router = useRouter();
@@ -13,9 +14,7 @@ export const HomeNavbar = () => {
     <nav className="fixed top-0 left-0 z-50 w-full">
       <div className="bg-background mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className="flex items-center gap-8">
-          <span className="text-xl font-bold">Pluto</span>
-        </div>
+        <Logo />
 
         {/* Desktop Links */}
         <div className="hidden items-center gap-6 text-sm font-medium md:flex">

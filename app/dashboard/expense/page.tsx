@@ -2,7 +2,7 @@
 
 import { DashboardTable } from '@/app/dashboard/dashboard-table';
 import { formatDate } from '@/app/lib/constants';
-import { Expense } from '@/app/lib/types/expense.types';
+import { Expense, ExpenseFormValues } from '@/app/lib/types/expense.types';
 import { Column } from '@/app/lib/types/table.types';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
@@ -149,11 +149,7 @@ export default function ExpensePage() {
   const queryClient = useQueryClient();
 
   const addExpenseMutation = useMutation({
-    mutationFn: async (newExpense: {
-      amount: number;
-      category: string;
-      date: string;
-    }) => {
+    mutationFn: async (newExpense: ExpenseFormValues) => {
       const userId = localStorage.getItem('userId');
 
       if (!userId) throw new Error('No user');

@@ -1,14 +1,9 @@
 'use client';
 
+import { ExpenseFormValues } from '@/app/lib/types/expense.types';
 import { Button } from '@/components/ui/button';
 import { FormInput } from '@/components/ui/form-input';
 import React, { useState } from 'react';
-
-type ExpenseFormValues = {
-  amount: number;
-  category: string;
-  date: string;
-};
 
 type ExpenseFormProps = {
   onSubmit: (data: ExpenseFormValues) => void;

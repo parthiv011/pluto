@@ -1,17 +1,9 @@
 'use client';
 
+import { IncomeFormValues } from '@/app/lib/types/income.types';
 import { Button } from '@/components/ui/button';
 import { FormInput } from '@/components/ui/form-input';
-import { useState } from 'react';
-
-type IncomeFormValues = {
-  amount: number;
-  source: string;
-  platform?: string;
-  brandName?: string;
-  description?: string;
-  recievedAt: string;
-};
+import React, { useState } from 'react';
 
 type IncomeFormTypes = {
   onSubmit: (data: IncomeFormValues) => void;
@@ -24,25 +16,64 @@ export const IncomeForm = ({
 }: IncomeFormTypes) => {
   const [amount, setAmount] = useState('');
   const [source, setSource] = useState('');
+  const [customSource, setCustomSource] = useState('');
   const [platform, setPlatform] = useState('');
   const [brandName, setBrandName] = useState('');
   const [description, setDescription] = useState('');
   const [recievedAt, setRecievedAt] = useState('');
 
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!amount || !source || !recievedAt) {
+      setError('All fields marked * are required');
+      return;
+    }
+
+    setError('');
+
+    onSubmit({
+      amount: Number(amount),
+      source,
+      customSource,
+      recievedAt,
+      platform,
+      brandName,
+      description,
+    });
+  };
+
   return (
-    <form className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <FormInput
         type="number"
         placeholder="Amount"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
-      <FormInput
-        type="text"
-        placeholder="Source"
+      <select
         value={source}
         onChange={(e) => setSource(e.target.value)}
-      />
+        className="bg-background border-border rounded-xl border p-2"
+      >
+        <option value="">Select Source</option>
+        <option value="ADS">Ads</option>
+        <option value="SPONSORSHIP">Sponsorship</option>
+        <option value="AFFILIATE">Affiliate</option>
+        <option value="SUBSCRIPTION">Subscription</option>
+        <option value="DONATION">Donation</option>
+        <option value="OTHER">Other</option>
+      </select>
+      {source === 'OTHER' && (
+        <FormInput
+          type="text"
+          placeholder="Enter custom source"
+          value={customSource}
+          onChange={(e) => setCustomSource(e.target.value)}
+        />
+      )}
       <FormInput
         type="text"
         placeholder="Platform"
@@ -67,7 +98,11 @@ export const IncomeForm = ({
         value={recievedAt}
         onChange={(e) => setRecievedAt(e.target.value)}
       />
-      <Button type="submit">Submit</Button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Adding...' : 'Add Income'}
+      </Button>
+
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </form>
   );
 };

@@ -38,9 +38,10 @@ model Expense {
 }
 
 model Income {
-  id     String       @id @default(cuid())
-  amount Float
-  source IncomeSource //enum
+  id           String       @id @default(cuid())
+  amount       Float
+  source       IncomeSource //enum
+  customSource String?
   // currency String       @default("INR")
 
   platform  String?

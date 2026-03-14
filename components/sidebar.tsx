@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/app/lib/utils';
 import {
   BanknoteArrowUp,
   BookOpenCheck,
@@ -8,10 +9,9 @@ import {
   UserCheck,
   Wallet,
 } from 'lucide-react';
+import { useState } from 'react';
 import { SidebarItems } from './sidebar-items';
 import { Button } from './ui/button';
-import { useState } from 'react';
-import { cn } from '@/app/lib/utils';
 
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);

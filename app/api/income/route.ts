@@ -10,8 +10,15 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { amount, source, platform, brandName, description, recievedAt } =
-      body;
+    const {
+      amount,
+      source,
+      customSource,
+      platform,
+      brandName,
+      description,
+      recievedAt,
+    } = body;
 
     if (typeof amount !== 'number' || !source || !recievedAt) {
       return NextResponse.json(
@@ -19,12 +26,16 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    if (source === 'OTHER' && !customSource) {
+      throw new Error('Custom source is required when source is OTHER');
+    }
 
     const income = await prisma.income.create({
       data: {
         userId: userId,
         amount: amount,
         source: source,
+        customSource: source === 'OTHER' ? customSource : null,
         platform: platform,
         brandName: brandName,
         description: description,

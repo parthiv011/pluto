@@ -15,12 +15,13 @@ export const HeroSection = () => {
         <div className="flex h-[calc(100vh-80px)] items-center">
           <div className="flex-1 space-y-6">
             <h1 className="max-w-xl text-5xl leading-tight font-bold">
-              Keep an eye on your spending in real-time as it occurs
+              The Financial Operating System for Creators & Esports Teams
             </h1>
 
             <p className="text-muted-foreground max-w-lg text-lg">
-              Gain instant visibility into every transaction with live feeds,
-              alerts, and dashboards that update the moment money moves.
+              Track revenue across platforms, manage expenses, and understand
+              the real profitability of your creator business — all in one
+              place.
             </p>
 
             <Button onClick={() => router.push('/signup')}>Get Started</Button>
